@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class ThreeText extends Component {
+export default class MoreText extends Component {
 
     constructor() {
         super()
@@ -9,7 +9,9 @@ export default class ThreeText extends Component {
 
     render() {
         return (
+
             <Text>{this.props.children}</Text>
+
         )
     }
 }
