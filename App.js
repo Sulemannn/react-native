@@ -1,42 +1,52 @@
 import React from 'react';
-// import MoreText from './components/MoreText'
-import { StyleSheet, View, Text, Image } from 'react-native';
+import TextsComponent from './components/TextsComponents';
+import ImagesComponent from './components/ImagesComponents';
 
-export default function App() {
-  return (
-    <View style={styles.scrollView}>
+import { Text, StyleSheet, ScrollView, ActivityIndicator, Pressable, Alert } from 'react-native';
 
+export default class App extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        showLoading: false
+      }
+    }
 
-      <View style={styles.containerText}>
+    onPress = () => {
+      this.setState({
+        showLoading: !this.state.showLoading
+      })
+      Alert.alert("Bouton pressé", "Vous avez appuyé sur le bouton")
+    }
 
-        <Text style={{ fontSize: "30px" }}>TextSize 30</Text>
-        <Text style={{ textAlign: "center", margin: "auto" }}>TextCentered</Text>
-        <Text style={{ fontWeight: "bold" }}>TextBold</Text>
-
-        <Image source={require("./img/konexio-logo.png")}
-          style={{ width: 300, height: 100 }} />
-
-        <Image
-          source={{ uri: "https://www.konexio.eu/uploads/1/2/0/2/120245745/konexio-logo_1.png" }}
-          style={{ width: 300, height: 100, margin: "auto" }} />
-
-      </View>
-    </View>
-  );
+    render() {
+      return (
+        <ScrollView style={styles.container}>
+          <TextsComponent/>
+          <ImagesComponent/>
+          { this.state.showLoading ? 
+            <ActivityIndicator size="large"/>
+            : null
+          }
+          <Pressable 
+            onPress={this.onPress}
+            style={styles.btn}
+          >
+            <Text>Appuyez-ici !</Text>
+          </Pressable>
+          
+        </ScrollView>
+      ) 
+    }
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    width: "360px",
-    height: "640px",
+  container: {
     backgroundColor: "blue",
+    flex: 1
   },
-
-  containerText: {
-    height: "160px",
-    width: "160px",
-    margin: "auto",
-    backgroundColor: "white",
-  },
-
-});
+  btn: {
+    backgroundColor: 'grey',
+    borderRadius: 0.5
+  }
+})
